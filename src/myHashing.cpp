@@ -1,9 +1,9 @@
 /**
- * @file main.cpp
+ * @file myHasing.cpp
  * @brief This demonstrates header files, separate cpp files, and some searching.
  * @details Implements and times sequential searching using FIFO class
- * @author Seth McNeill
- * @date 2021 February 17
+ * @author Addis Bogale
+ * @date 2021 February 28
  * 
  */
 
@@ -59,6 +59,39 @@ public:
         }
     }
 
+    bool add(int num){
+        int index;
+        index = num % lenStorage;
+        
+        if(storage.at(index) == -1){
+            storage.at(index) = num;
+            return true;
+        }else{
+            for(int ii=index+1; ii < (lenStorage-1);ii++){
+                if(storage.at(ii) == -1){
+                    storage.at(ii) = num;
+                    return true;
+                }
+            }    
+        }
+        return false;
+    }
+
+    int search(int num) {
+         int index;
+        index = num % lenStorage;        
+        if(storage.at(index) == num){
+            return index;
+        }else{
+            for(int ii=index+1; ii < (lenStorage-1);ii++){
+                if(storage.at(index) == num){
+                    return ii;
+                }
+            }    
+        }
+        return -1;
+    }
+
     /**
      * Hash search for the value passed
      * 
@@ -93,9 +126,14 @@ int main(int, char**) {
     int nIterations;
     vector<int> allIters;
     s1.printStorage();
-    s1.fillStorage(11);
+    s1.add(6);
     s1.printStorage();
-
+    s1.add(11);
+    s1.printStorage();
+     s1.add(9);
+    s1.printStorage();
+     s1.add(14);
+    s1.printStorage();
     cout << "Hash based searching" << endl;
     for(int ii = 0; ii < (lenHashTable+1); ii++)
     {
